@@ -82,4 +82,17 @@ const returnMatch = (array) => {
     console.log(finalAnswer);
     return(finalAnswer);
 }
-returnMatch(scoreArray);
+
+let finalMed = returnMatch(scoreArray);
+
+//this checks the med against the unwanted side effects arrays
+/*
+const checkSideEffects = (finalMed) => {
+    for (x = 0; x < sideEffects.length; x++) {
+        for (i = 0; i < sideEffects[x].length; i++) {
+            if (finalMed === sideEffects[x][0]) {
+                console.log(sideEffects[x])
+            }
+        }
+    }
+}*/
