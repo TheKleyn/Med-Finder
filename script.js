@@ -20,24 +20,54 @@ deeply equals, increment by the value of that selector instead of just plus one.
 
 //this what will get returned from the user
 //symptoms
-const testUserArray = ['Migraines'];
+const testUserArray = ['Depression'];
 //unwanted side effects
-const testUnwantedSideEffects = ['Sexual Dysfunction'];
+const testUnwantedSideEffects = [''];
 
 //array of arrays consisting of medication indications, preceded by med name
-const medArray = [['SSRI', 'Depression', 'OCD', 'Chronic Pain', 'PTSD', 'Anxiety', 'Panic Disorder', 'Phobias'], 
-['Bupropion', 'Depression', 'ADHD', 'Sexual Dysfunction', 'Smoking'],
-['Nortriptyline', 'Nerve Pain', 'Migraines', 'Pediatric Nocturnal Enuresis']];
+const medArray = [['SSRI', 'Depression', 'OCD', 'Chronic Pain', 'PTSD', 'Anxiety', 'Panic Disorder', 'Phobias', /*side effects*/
+'Sexual Dysfunction', 'Insomnia', 'Emotional Flattening'], 
+['Bupropion', 'Depression', 'ADHD', 'Smoking', /*side effects*/ 'Insomnia', 'Headaches', 'Palpitations', 'Constipation'],
+['Nortriptyline', 'Nerve Pain', 'Migraines', 'Pediatric Nocturnal Enuresis', /*side effects*/ 'Constipation', 'Insomnia']];
 
-const sideEffects = [['SSRI', 'Sexual Dysfunction', 'Insomnia', 'Emotional Flattening'],
+/*const sideEffects = [['SSRI', 'Sexual Dysfunction', 'Insomnia', 'Emotional Flattening'],
 ['Bupropion', 'Insomnia', 'Headaches', 'Palpitations', 'Constipation'],
-['Nortiptyline', 'Constipation', 'Insomnia']];
+['Nortiptyline', 'Constipation', 'Insomnia']];*/
 
+
+//this checks the meds array against the unwanted side effects array the user gives, then creates a new array of arrays, 
+//free of meds with those side effects, to be used in the matching function
+const excludeSideEffects = (userArray, medArray) => {
+    let incrementArray = [];
+    let sideEffects = userArray;
+    let medication = medArray;
+    
+    for (i = 0; i < medication.length; i++) {
+            for (x = 0; x < sideEffects.length; x++) {
+                if (medication[i].indexOf(sideEffects[x]) <= -1) {
+                
+                    incrementArray.push(medication[i]);
+                    //add med index? or firdt name, now its just checking count total of occurance of symptoms, try switching orfer of what iterates over what
+                    console.log(sideEffects[x], medication[i]);
+                    
+                }
+        }
+
+    }
+    
+    console.log('what follows is the incrementarray');
+    console.log(incrementArray);
+    console.log('end of the incrementarray');
+
+    return(incrementArray);
+}
+
+let noSideEffectsArray = excludeSideEffects(testUnwantedSideEffects, medArray);
 
 //this function compares the user input and then pushes scores for each med into a scoreArray
-const findBestMed = (userArray, medArray) => {
+const findBestMed = (userArray, noSideEffectsArray) => {
     let symptoms = userArray;
-    let medication = medArray;
+    let medication = noSideEffectsArray;
     let scoreArray = [];
     for (i = 0; i < medication.length; i++){
         let incrementor = 0;
@@ -61,7 +91,7 @@ const findBestMed = (userArray, medArray) => {
 
 }
 console.log('this is outside fx');
-let scoreArray = findBestMed(testUserArray, medArray);
+let scoreArray = findBestMed(testUserArray, noSideEffectsArray);
 console.log(scoreArray);
 
 //this function iterates through the scoreArray to find the highest number med
@@ -78,21 +108,18 @@ const returnMatch = (array) => {
         } 
     }
     let finalAnswer = array[indexHigh + 1];
-    console.log(indexHigh);
-    console.log(finalAnswer);
-    return(finalAnswer);
+
+    if (finalAnswer === undefined) {
+        return('Sorry, no anti-depressant medications matched your criteria. Try reducing the number of excluded side effects.')
+    } else {
+        return(finalAnswer);
+    }
+    //console.log(indexHigh);
+    //console.log(finalAnswer);
+    
 }
 
 let finalMed = returnMatch(scoreArray);
+console.log(finalMed);
 
-//this checks the med against the unwanted side effects arrays
-/*
-const checkSideEffects = (finalMed) => {
-    for (x = 0; x < sideEffects.length; x++) {
-        for (i = 0; i < sideEffects[x].length; i++) {
-            if (finalMed === sideEffects[x][0]) {
-                console.log(sideEffects[x])
-            }
-        }
-    }
-}*/
+
