@@ -1,6 +1,6 @@
 /*
 
-Selections: Depression, Sexual Dysfunction, Smoking, ADHD, Obesity, Anxiety, Phobias, Panic Disorder, Low Libido, Insomnia, OCD, Migraines, Chronic Pain (SSRI), 
+Selections: Depression, Sexual Dysfunction, Smoking, Nerve Pain, ADHD, Obesity, Anxiety, Phobias, Panic Disorder, Low Libido, Insomnia, OCD, Migraines, Chronic Pain (SSRI), 
 Fibromyalgia, PTSD (ssri), Bulimia.
 Medications: SSRI, General Tricyclics, Anafranil, Nortriptyline, Amitriptyline, SNRI, Mirtazapine, Trazadone
 
@@ -18,16 +18,24 @@ Maybe use a scale 1-5 weighted response? This would break ties. Would need to co
 deeply equals, increment by the value of that selector instead of just plus one. Then push incrementor into results array.
 */
 
-const testUserArray = ['Sexual Dysfunction', 'ADHD', 'OCD'];
+//this what will get returned from the user
+//symptoms
+const testUserArray = ['Migraines'];
+//unwanted side effects
+const testUnwantedSideEffects = ['Sexual Dysfunction'];
 
-//const SSRI= ['Depression', 'OCD', 'Chronic Pain', 'PTSD', 'Anxiety', 'Panic Disorder', 'Phobias'];
-//const Bupropion = ['Depression', 'ADHD', 'Sexual Dysfunction', 'Smoking'];
+//array of arrays consisting of medication indications, preceded by med name
+const medArray = [['SSRI', 'Depression', 'OCD', 'Chronic Pain', 'PTSD', 'Anxiety', 'Panic Disorder', 'Phobias'], 
+['Bupropion', 'Depression', 'ADHD', 'Sexual Dysfunction', 'Smoking'],
+['Nortriptyline', 'Nerve Pain', 'Migraines', 'Pediatric Nocturnal Enuresis']];
 
-const medArray = [['Depression', 'OCD', 'Chronic Pain', 'PTSD', 'Anxiety', 'Panic Disorder', 'Phobias'], ['Depression', 'ADHD', 'Sexual Dysfunction', 'Smoking']];
+const sideEffects = [['SSRI', 'Sexual Dysfunction', 'Insomnia', 'Emotional Flattening'],
+['Bupropion', 'Insomnia', 'Headaches', 'Palpitations', 'Constipation'],
+['Nortiptyline', 'Constipation', 'Insomnia']];
 
 
+//this function compares the user input and then pushes scores for each med into a scoreArray
 const findBestMed = (userArray, medArray) => {
-    //let incrementor = 0;
     let symptoms = userArray;
     let medication = medArray;
     let scoreArray = [];
@@ -46,8 +54,32 @@ const findBestMed = (userArray, medArray) => {
             
         }
         scoreArray.push(incrementor);
+        scoreArray.push(medication[i][0]);
     }
-    console.log(scoreArray);
-}
+    
+    return(scoreArray);
 
-findBestMed(testUserArray, medArray);
+}
+console.log('this is outside fx');
+let scoreArray = findBestMed(testUserArray, medArray);
+console.log(scoreArray);
+
+//this function iterates through the scoreArray to find the highest number med
+//then adds 1 to index to return name of med
+const returnMatch = (array) => {
+    let highestNumber = 0;
+    let indexHigh = 0;
+    
+
+    for (i = 0; i < array.length; i++) {
+        if (array[i] > highestNumber) {
+            highestNumber = array[i];
+            indexHigh = i;
+        } 
+    }
+    let finalAnswer = array[indexHigh + 1];
+    console.log(indexHigh);
+    console.log(finalAnswer);
+    return(finalAnswer);
+}
+returnMatch(scoreArray);
