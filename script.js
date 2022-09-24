@@ -18,25 +18,36 @@ Maybe use a scale 1-5 weighted response? This would break ties. Would need to co
 deeply equals, increment by the value of that selector instead of just plus one. Then push incrementor into results array.
 */
 
-const testUserArray = ['Depression', 'Anxiety'];
+const testUserArray = ['Sexual Dysfunction', 'ADHD', 'OCD'];
 
-const SSRI= ['Depression', 'OCD', 'Chronic Pain', 'PTSD', 'Anxiety', 'Panic Disorder', 'Phobias'];
-const Bupropion = ['Depression', 'ADHD', 'Sexual Dysfunction', 'Smoking'];
+//const SSRI= ['Depression', 'OCD', 'Chronic Pain', 'PTSD', 'Anxiety', 'Panic Disorder', 'Phobias'];
+//const Bupropion = ['Depression', 'ADHD', 'Sexual Dysfunction', 'Smoking'];
 
-//const medArray = [['Depression', 'OCD', 'Chronic Pain', 'PTSD', 'Anxiety', 'Panic Disorder', 'Phobias'],['Depression', 'ADHD', 'Sexual Dysfunction', 'Smoking']];
+const medArray = [['Depression', 'OCD', 'Chronic Pain', 'PTSD', 'Anxiety', 'Panic Disorder', 'Phobias'], ['Depression', 'ADHD', 'Sexual Dysfunction', 'Smoking']];
+
 
 const findBestMed = (userArray, medArray) => {
-    let incrementor = 0;
+    //let incrementor = 0;
     let symptoms = userArray;
     let medication = medArray;
-    for (x = 0; x < symptoms.length; x++) {
-        for (i = 0; i < medication.length; i++) {
-            if (symptoms[x] === medication[i]) {
-                incrementor++;
+    let scoreArray = [];
+    for (i = 0; i < medication.length; i++){
+        let incrementor = 0;
+        for (y = 0; y < medication[i].length; y++){
+            for (x = 0; x < symptoms.length; x++) {
+                if (symptoms[x] === medication[i][y]) {
+                    incrementor += 1;
+                    //add med index? or firdt name, now its just checking count total of occurance of symptoms, try switching orfer of what iterates over what
+                    console.log(symptoms[x], medication[i][y]);
+                    
+                }
+                
             }
+            
         }
+        scoreArray.push(incrementor);
     }
-    console.log(incrementor);
+    console.log(scoreArray);
 }
 
-findBestMed(testUserArray, Bupropion);
+findBestMed(testUserArray, medArray);
