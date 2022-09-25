@@ -20,12 +20,12 @@ deeply equals, increment by the value of that selector instead of just plus one.
 
 //this what will get returned from the user
 //symptoms
-const testUserArray = ['Depression'];
+const userSymptomArray = ['Depression'];
 //unwanted side effects
-const testUnwantedSideEffects = [''];
+const userUnwantedSideEffects = [''];
 
 //array of arrays consisting of medication indications, preceded by med name
-const medArray = [['SSRI', 'Depression', 'OCD', 'Chronic Pain', 'PTSD', 'Anxiety', 'Panic Disorder', 'Phobias', /*side effects*/
+const medArray = [['SSRIs', 'Depression', 'OCD', 'Chronic Pain', 'PTSD', 'Anxiety', 'Panic Disorder', 'Phobias', /*side effects*/
 'Sexual Dysfunction', 'Insomnia', 'Emotional Flattening'], 
 ['Bupropion', 'Depression', 'ADHD', 'Smoking', /*side effects*/ 'Insomnia', 'Headaches', 'Palpitations', 'Constipation'],
 ['Nortriptyline', 'Nerve Pain', 'Migraines', 'Pediatric Nocturnal Enuresis', /*side effects*/ 'Constipation', 'Insomnia']];
@@ -37,9 +37,9 @@ const medArray = [['SSRI', 'Depression', 'OCD', 'Chronic Pain', 'PTSD', 'Anxiety
 
 //this checks the meds array against the unwanted side effects array the user gives, then creates a new array of arrays, 
 //free of meds with those side effects, to be used in the matching function
-const excludeSideEffects = (userArray, medArray) => {
+const excludeSideEffects = (userSymptomArray, medArray) => {
     let incrementArray = [];
-    let sideEffects = userArray;
+    let sideEffects = userSymptomArray;
     let medication = medArray;
     
     for (i = 0; i < medication.length; i++) {
@@ -62,11 +62,11 @@ const excludeSideEffects = (userArray, medArray) => {
     return(incrementArray);
 }
 
-let noSideEffectsArray = excludeSideEffects(testUnwantedSideEffects, medArray);
+let noSideEffectsArray = excludeSideEffects(userUnwantedSideEffects, medArray);
 
 //this function compares the user input and then pushes scores for each med into a scoreArray
-const findBestMed = (userArray, noSideEffectsArray) => {
-    let symptoms = userArray;
+const findBestMed = (userSymptomArray, noSideEffectsArray) => {
+    let symptoms = userSymptomArray;
     let medication = noSideEffectsArray;
     let scoreArray = [];
     for (i = 0; i < medication.length; i++){
@@ -91,7 +91,7 @@ const findBestMed = (userArray, noSideEffectsArray) => {
 
 }
 console.log('this is outside fx');
-let scoreArray = findBestMed(testUserArray, noSideEffectsArray);
+let scoreArray = findBestMed(userSymptomArray, noSideEffectsArray);
 console.log(scoreArray);
 
 //this function iterates through the scoreArray to find the highest number med
@@ -112,7 +112,7 @@ const returnMatch = (array) => {
     if (finalAnswer === undefined) {
         return('Sorry, no anti-depressant medications matched your criteria. Try reducing the number of excluded side effects.')
     } else {
-        return(finalAnswer);
+        return(`Ask your medical provider about ${finalAnswer}. This medication may be indicated for your symptoms.`);
     }
     //console.log(indexHigh);
     //console.log(finalAnswer);
