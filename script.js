@@ -22,7 +22,7 @@ deeply equals, increment by the value of that selector instead of just plus one.
 //symptoms
 const userSymptomArray = ['Depression'];
 //unwanted side effects
-const userUnwantedSideEffects = [''];
+const userUnwantedSideEffects = ['Sexual Dysfunction', 'Insomnia'];
 
 //array of arrays consisting of medication indications, preceded by med name
 const medArray = [['SSRIs', 'Depression', 'OCD', 'Chronic Pain', 'PTSD', 'Anxiety', 'Panic Disorder', 'Phobias', /*side effects*/
