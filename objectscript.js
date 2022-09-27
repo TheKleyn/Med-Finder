@@ -7,9 +7,9 @@
 
 //this what will get returned from the user
 //symptoms
-const userSymptomArray = ['Depression', 'ADHD'];
+const userSymptomArray = ['Depression'];
 //unwanted side effects
-const userUnwantedSideEffects = ['Sexual Dysfunction', 'Insomnia'];
+const userUnwantedSideEffects = ['Sexual Dysfunction', 'Emotional Flattening', 'Insomnia'];
 
 const medArray = [
     {
@@ -31,22 +31,53 @@ const medArray = [
         description: 'Nortriptyline, sold under the brand name Pamelor, among others, is a medication used to treat depression. This medicine is used for: neuropathic pain, attention deficit hyperactivity disorder (ADHD), smoking cessation and anxiety. As with many antidepressants, its use for young people with depression and other psychiatric disorders may be limited due to increased suicidality in the 18-24 population initiating treatment. Nortriptyline is a less preferred treatment for ADHD and stopping smoking.[4] It is taken by mouth.'
     }
 ];
+//const result = words.filter(word => word.length > 6);
+
+//const filteredArray = array1.filter(value => array2.includes(value));
+
+/*const newFilter = (userInput, medArray) => {
+    arrayOfMeds = medArray;
+    userEffects = userInput;
+    let filteredArray = [];
+    for (x =0; x < medArray.length; x++) {
+        if (arrayOfMeds[x].sideEffects.filter(value => userEffects.includes(value)) !== true) {
+            filteredArray.push(arrayOfMeds[x]);
+        };
+    }
+    return arrayOfMeds;
+}
+const testArray = newFilter(userUnwantedSideEffects, medArray);
+console.log(testArray);
+console.log('the above is the test array');
+
+const excludeItems = (arrayOfSearchItems, arrayOfObjects) => {
+    return arrayOfObjects.filter(obj => {
+        return obj.storage.every(storageItem => {
+            return arrayOfSearchItems.includes(storageItem) === false;
+        });
+    });
+}; */
+
+
+
+//const filteredArray = medArray[0].sideEffects.filter(value => userUnwantedSideEffects.includes(value));
+//console.log(filteredArray);
 
 
 //this checks the meds array against the unwanted side effects array the user gives, then creates a new array of arrays, 
 //free of meds with those side effects, to be used in the matching function
-const excludeSideEffects = (userSymptomArray, medArray) => {
+/*const excludeSideEffects = (userSymptomArray, medArray) => {
     let incrementArray = [];
     let userEffects = userSymptomArray;
     let medication = medArray;
     
-    for (i = 0; i < medication.length; i++) {
-            for (x = 0; x < userEffects.length; x++) {
-                if (medication[i].sideEffects.indexOf(userEffects[x]) <= -1) {
+    for (i = 0; i < userEffects.length; i++) {
+            for (x = 0; x < medication.length; x++) {
+                if (medication[x].sideEffects.indexOf(userEffects) <= -1) {
                 
-                    incrementArray.push(medication[i]); 
+                    incrementArray.push(medication[x]); 
                     //add med index? or firdt name, now its just checking count total of occurance of symptoms, try switching orfer of what iterates over what
-                    //console.log(sideEffects[x], medication[i]);
+                    console.log(userEffects[i], medication[x]);
                     
                 
                 }
@@ -59,7 +90,15 @@ const excludeSideEffects = (userSymptomArray, medArray) => {
     console.log('end of the incrementarray');
 
     return(incrementArray);
-}
+} */
+
+const excludeSideEffects = (userUnwantedSideEffects, medArray) => {
+    return medArray.filter(obj => {
+        return obj.sideEffects.every(effects => {
+            return userUnwantedSideEffects.includes(effects) === false;
+        })
+    })
+};
 
 let noSideEffectsArray = excludeSideEffects(userUnwantedSideEffects, medArray);
 console.log(noSideEffectsArray); 
